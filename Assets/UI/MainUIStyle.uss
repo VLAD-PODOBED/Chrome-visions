@@ -1,0 +1,41 @@
+.counter {
+    -unity-font: url("project://database/Assets/UI/SF%20Quartzite%20Oblique.ttf?fileID=12800000&guid=7e8f852631bc08143bdb72ad60547fae&type=3#SF Quartzite Oblique");
+    -unity-font-definition: initial;
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 4px rgba(31, 27, 44, 0.94);
+    letter-spacing: 0;
+    -unity-text-outline-color: rgb(31, 27, 44);
+}
+
+.placeCounter {
+    font-size: 72px;
+    -unity-font: url("project://database/Assets/UI/SF%20Quartzite%20Shaded%20Oblique.ttf?fileID=12800000&guid=ddcc08d95c6d26f48b00cbc86f382d4c&type=3#SF Quartzite Shaded Oblique");
+    -unity-font-definition: initial;
+    color: rgb(214, 126, 255);
+    text-shadow: 4px 4px 8px rgba(31, 27, 44, 0.91);
+}
+
+.actionButton {
+    -unity-font: url("project://database/Assets/UI/SF%20Quartzite%20Oblique.ttf?fileID=12800000&guid=7e8f852631bc08143bdb72ad60547fae&type=3#SF Quartzite Oblique");
+    -unity-font-definition: initial;
+    font-size: 48px;
+    border-left-color: rgb(214, 126, 255);
+    border-right-color: rgb(214, 126, 255);
+    border-top-color: rgb(214, 126, 255);
+    border-bottom-color: rgb(214, 126, 255);
+    color: rgb(214, 126, 255);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    background-color: rgb(31, 27, 44);
+}
