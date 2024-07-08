@@ -8,7 +8,7 @@ public class PlayerControllerBonusThird : MonoBehaviour
     private bool isSelectionMode = false;
     private Transform selectedBotTransform;
     public AudioClip passThroughSound;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
     private bool bonusActive = false;
     private float bonusEndTime;
 
@@ -18,11 +18,8 @@ public class PlayerControllerBonusThird : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+       
+        
 
         var root = uiDocument.rootVisualElement;
         potImage = root.Q<VisualElement>("Bonus1");
@@ -48,6 +45,9 @@ public class PlayerControllerBonusThird : MonoBehaviour
 
         if (canSelectBot && Input.GetKeyDown(KeyCode.E) && !bonusActive)
         {
+           
+            audioSource.PlayOneShot(passThroughSound);
+             
             isSelectionMode = true;
             bonusActive = true;
             bonusEndTime = Time.time + 5f;

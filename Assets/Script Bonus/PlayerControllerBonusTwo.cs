@@ -12,7 +12,6 @@ public class PlayerControllerBonusTwo : MonoBehaviour
     private Rigidbody selectedBallRb;
     private Vector3 originalBallPosition;
     public AudioClip passThroughSound;
-    private AudioSource audioSource;
     private bool bonusActive = false;
     private float bonusEndTime;
 
@@ -20,15 +19,13 @@ public class PlayerControllerBonusTwo : MonoBehaviour
     private VisualElement bonus1Image;
     private VisualElement bonus3Image;
 
+    [SerializeField] private AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
 
+      
         var root = uiDocument.rootVisualElement;
         bonus1Image = root.Q<VisualElement>("Bonus1");
         bonus3Image = root.Q<VisualElement>("Bonus3");
@@ -54,6 +51,10 @@ public class PlayerControllerBonusTwo : MonoBehaviour
 
         if (canSelectBall && Input.GetKeyDown(KeyCode.E) && !bonusActive)
         {
+            if (passThroughSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(passThroughSound);
+            }
             selectionMode = true;
             bonusActive = true;
             bonusEndTime = Time.time + 5f;

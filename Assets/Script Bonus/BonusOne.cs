@@ -23,11 +23,7 @@ public class BonusOneRespawn : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (isActive && (collision.gameObject.CompareTag("BOT1")) || (collision.gameObject.CompareTag("BOT2")) || (collision.gameObject.CompareTag("BOT3")))
-        {
-            StartCoroutine(RespawnAfterDelay());
-            isActive = false;
-        } 
+        
 
         if (isActive && (collision.gameObject.CompareTag("Igrok")))
         {

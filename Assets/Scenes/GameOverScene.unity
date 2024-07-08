@@ -645,6 +645,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1854456529}
     m_Modifications:
     - target: {fileID: 390187394078522904, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 390187394078522904, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
       value: 1...
       objectReference: {fileID: 0}
@@ -654,9 +658,17 @@ PrefabInstance:
         3..."
       objectReference: {fileID: 0}
     - target: {fileID: 2537476995786736240, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537476995786736240, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
       value: "\u0422\u0430\u043A \u043D\u0435 \u043F\u043E\u0439\u0434\u0435\u0442,
         \u0434\u0430\u0432\u0430\u0439 \u043A\u0430 \u0435\u0449\u0435 \u0440\u0430\u0437"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2841458968385619198, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 2841458968385619198, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
@@ -668,8 +680,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3795758257444527913, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 3795758257444527913, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
       value: 2...
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883247032175773187, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 3883247032175773187, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
@@ -686,6 +706,10 @@ PrefabInstance:
     - target: {fileID: 8284094946757621578, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: m_Name
       value: DialogueHolder (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8291160974402871836, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 8291160974402871836, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input
@@ -771,6 +795,10 @@ PrefabInstance:
     - target: {fileID: 8358487562528200094, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8793613465056239933, guid: d566d3246166a7548b5cd157193047e5, type: 3}
+      propertyPath: delay
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 8793613465056239933, guid: d566d3246166a7548b5cd157193047e5, type: 3}
       propertyPath: input

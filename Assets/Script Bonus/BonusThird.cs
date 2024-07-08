@@ -31,11 +31,7 @@ public class BonusThirdRespawn : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("BOT1") || collision.gameObject.CompareTag("BOT2") || collision.gameObject.CompareTag("BOT3"))
-        {
-            StartRespawn();
-            gameObject.SetActive(false);
-        }
+       
         if (collision.gameObject.CompareTag("Igrok"))
         {
             PlayPickupSound();

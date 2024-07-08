@@ -14,8 +14,7 @@ public class PlayerControllerBonusOne : MonoBehaviour
     private Vector3 initialScale;
     private bool isActive = true;
     public AudioClip passThroughSound;
-    private AudioSource audioSource;
-
+    [SerializeField] private AudioSource audioSource;
     public UIDocument uiDocument;
     private VisualElement bonus2Image;
     private VisualElement bonus3Image;
@@ -27,11 +26,7 @@ public class PlayerControllerBonusOne : MonoBehaviour
         initialRotation = transform.rotation;
         initialScale = transform.localScale;
 
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-        }
+        
 
         var root = uiDocument.rootVisualElement;
         bonus2Image = root.Q<VisualElement>("Bonus2");
@@ -48,6 +43,10 @@ public class PlayerControllerBonusOne : MonoBehaviour
 
         if (canSelectPassThrough && Input.GetKeyDown(KeyCode.E))
         {
+            if (passThroughSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(passThroughSound);
+            }
             StartCoroutine(PassThroughWalls());
         }
     }
