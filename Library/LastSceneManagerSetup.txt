@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/chrome_visions.unity
+- path: Assets/Scenes/chrome_visions.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

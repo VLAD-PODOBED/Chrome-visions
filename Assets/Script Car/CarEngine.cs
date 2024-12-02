@@ -22,9 +22,11 @@ public class ArcadeCarController : MonoBehaviour
     private Rigidbody rb;
     private bool isInitialAcceleration = true;
     private float initialAccelerationEndTime;
+    public bool enabled;
 
     private void Start()
     {
+        enabled = true;
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, -0.9f, 0); 
         initialAccelerationEndTime = Time.time + initialAccelerationDuration; 
@@ -32,6 +34,8 @@ public class ArcadeCarController : MonoBehaviour
 
     private void Update()
     {
+        if (!enabled) return;
+        
         HandleMotor();
         HandleSteering();
         UpdateWheels();
@@ -116,5 +120,18 @@ public class ArcadeCarController : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.position = pos;
         wheelTransform.rotation = rot;
+    }
+
+    public void StopCar()
+    {
+        if (rb != null)
+        {
+            // Мгновенно останавливаем машину
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            
+            // Применяем тормоза
+            ApplyBraking();
+        }
     }
 }
