@@ -7,14 +7,16 @@ public class LockPickTrigger : MonoBehaviour
     public GameObject lockPickObject;
     public GameObject lockObject;
     public CanvasGroup fadePanel;
+    public Camera mainCamera;
+    public Camera lockpickCamera;
     private ArcadeCarController carController;
 
     void Start()
     {
         lockPickObject.SetActive(false);
         lockObject.SetActive(false);
-        
-       
+        lockpickCamera.gameObject.SetActive(false);
+        fadePanel.alpha = 0f;
     }
 
     void OnTriggerEnter(Collider other)
@@ -31,16 +33,25 @@ public class LockPickTrigger : MonoBehaviour
 
     private void StartLockpicking()
     {
+        StartCoroutine(SwitchToCameraSequence());
+    }
+
+    private IEnumerator SwitchToCameraSequence()
+    {
+        yield return StartCoroutine(FadeScreen(0f, 1f));
+        
         lockPickObject.SetActive(true);
         lockObject.SetActive(true);
-        
-        // StartCoroutine(FadeScreen());
+        mainCamera.gameObject.SetActive(false);
+        lockpickCamera.gameObject.SetActive(true);
         
         carController.StopCar();
         carController.enabled = false;
+        
+        yield return StartCoroutine(FadeScreen(1f, 0f));
     }
 
-    private IEnumerator FadeScreen()
+    private IEnumerator FadeScreen(float startAlpha, float targetAlpha)
     {
         float duration = 0.5f;
         float elapsed = 0f;
@@ -48,10 +59,10 @@ public class LockPickTrigger : MonoBehaviour
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            fadePanel.alpha = elapsed / duration;
+            fadePanel.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / duration);
             yield return null;
         }
         
-        fadePanel.alpha = 1f;
+        fadePanel.alpha = targetAlpha;
     }
 }
