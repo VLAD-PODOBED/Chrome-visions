@@ -15,7 +15,7 @@
         <ui:VisualElement name="MapContainer" style="flex-grow: 1; flex-direction: column; align-self: auto; align-items: flex-end; justify-content: flex-end; flex-wrap: nowrap; margin-right: 105px; margin-bottom: 0;">
             <ui:VisualElement name="Map" style="background-image: url(&quot;project://database/Assets/UI/%D0%BC%D0%B8%D0%BD%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B0.png?fileID=21300000&amp;guid=5d9f9ff406161864c9c6fa4a17a8dc84&amp;type=3#мини-карта&quot;); flex-grow: 1; position: absolute; height: 300px; width: 365px; bottom: 120px; right: 0; opacity: 0.55; display: none;" />
             <ui:VisualElement name="PlayerIcon" style="background-image: url(&quot;project://database/Assets/UI/%D0%B8%D0%BA%D0%BE%D0%BD%D0%BA%D0%B0%20%D0%BC%D0%B0%D1%88%D0%B8%D0%BD%D1%8B.png?fileID=21300000&amp;guid=1dcb902456d5996499441cb2f5521a40&amp;type=3#иконка машины&quot;); flex-grow: 1; position: absolute; height: 64px; width: 64px; bottom: 209px; right: 308px; opacity: 0.85; display: none;" />
-            <ui:Label tabindex="-1" text="1st Place" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LapCount1" class="header counter placeCounter" style="height: 85px; width: 427px; -unity-text-align: upper-right;" />
+            <ui:Label tabindex="-1" text="1st Place" parse-escape-sequences="true" display-tooltip-when-elided="true" name="LapCount1" class="header counter placeCounter" style="height: 85px; width: 427px; -unity-text-align: upper-right; opacity: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

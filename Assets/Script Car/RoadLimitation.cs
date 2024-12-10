@@ -55,9 +55,10 @@ public class IgrokController : MonoBehaviour
         timeHistory.Add(Time.time);
     }
 
-    private System.Collections.IEnumerator TeleportToRoadAfterDelay()
+    public System.Collections.IEnumerator TeleportToRoadAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
+      
 
         if (!IsOnRoad())
         {
@@ -78,7 +79,30 @@ public class IgrokController : MonoBehaviour
         }
     }
 
-    private Vector3 GetPositionFiveSecondsAgo()
+    public System.Collections.IEnumerator TeleportToRoadAfterDelayOnRoad()
+    {
+        yield return new WaitForSeconds(0.2f);
+       
+
+        
+            Vector3 positionFiveSecondsAgo = GetPositionFiveSecondsAgo();
+
+            if (positionFiveSecondsAgo != Vector3.zero)
+            {
+                Vector3 savedVelocity = rb.velocity;
+                Vector3 savedAngularVelocity = rb.angularVelocity;
+                transform.position = positionFiveSecondsAgo;
+
+                rb.velocity = savedVelocity;
+                rb.angularVelocity = savedAngularVelocity;
+
+                rb.Sleep();
+                rb.WakeUp();
+            }
+  
+    }
+
+    public Vector3 GetPositionFiveSecondsAgo()
     {
         float targetTime = Time.time - timeDelay;
 

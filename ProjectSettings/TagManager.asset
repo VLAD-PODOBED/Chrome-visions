@@ -18,6 +18,7 @@ TagManager:
   - BOT1
   - BOT2
   - BOT3
+  - record
   layers:
   - Default
   - TransparentFX

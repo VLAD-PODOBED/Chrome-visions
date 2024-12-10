@@ -13,7 +13,7 @@ public class RestartGame : MonoBehaviour
 
     public void RestartScene()
     {
-        string sceneName = "Chrome_visions";
+        string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }
 }

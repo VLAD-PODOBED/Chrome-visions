@@ -12,7 +12,8 @@ public class CameraScript : MonoBehaviour
         Vector3 targetPosition = Igrok.TransformPoint(offset);
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
 
-        Vector3 direction = Igrok.position - transform.position;
+        Vector3 lookAtPosition = Igrok.position + Vector3.up * 0.6f;
+        Vector3 direction = lookAtPosition - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
     }
