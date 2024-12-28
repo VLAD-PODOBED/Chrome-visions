@@ -19,6 +19,7 @@ TagManager:
   - BOT2
   - BOT3
   - record
+  - OffRoadSafeZone
   layers:
   - Default
   - TransparentFX

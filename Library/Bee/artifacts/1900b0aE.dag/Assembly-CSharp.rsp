@@ -367,6 +367,7 @@
 "Assets/ArchCollisionTracker.cs"
 "Assets/CarController.cs"
 "Assets/CarSounds.cs"
+"Assets/EndTrigger.cs"
 "Assets/Floating.cs"
 "Assets/glitchs.cs"
 "Assets/lab19/LockPick.cs"

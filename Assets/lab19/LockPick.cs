@@ -21,6 +21,8 @@ public class LockPick : MonoBehaviour
     private float keyPressTime = 0;
 
     private bool movePick = true;
+    public MovingDoor door;
+    public LockPickTrigger lockPickTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,7 @@ public class LockPick : MonoBehaviour
     void Update()
     {
         transform.localPosition = pickPosition.position;
+
 
         if(movePick)
         {
@@ -74,7 +77,8 @@ public class LockPick : MonoBehaviour
         {
             if (eulerAngle < unlockRange.y && eulerAngle > unlockRange.x)
             {
-                Debug.Log("Unlocked!");
+                door.OpenDoor();
+                lockPickTrigger.ReturnToPlayer();
                 newLock();
 
                 movePick = true;

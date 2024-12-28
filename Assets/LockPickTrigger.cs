@@ -36,6 +36,11 @@ public class LockPickTrigger : MonoBehaviour
         StartCoroutine(SwitchToCameraSequence());
     }
 
+    public void ReturnToPlayer()
+    {
+        StartCoroutine(ReturnToCameraSequence());
+    }
+
     private IEnumerator SwitchToCameraSequence()
     {
         yield return StartCoroutine(FadeScreen(0f, 1f));
@@ -47,6 +52,20 @@ public class LockPickTrigger : MonoBehaviour
         
         carController.StopCar();
         carController.enabled = false;
+        
+        yield return StartCoroutine(FadeScreen(1f, 0f));
+    }
+
+    private IEnumerator ReturnToCameraSequence()
+    {
+        yield return StartCoroutine(FadeScreen(0f, 1f));
+        
+        lockPickObject.SetActive(false);
+        lockObject.SetActive(false);
+        mainCamera.gameObject.SetActive(true);
+        lockpickCamera.gameObject.SetActive(false);
+        
+        carController.enabled = true;
         
         yield return StartCoroutine(FadeScreen(1f, 0f));
     }

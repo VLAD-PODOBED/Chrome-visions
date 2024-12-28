@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public class IgrokController : MonoBehaviour
 {
     private bool onRoad = true;
+
+    // Вместо одного флага используем счётчик зон
+    private int safeZoneCounter = 0;
+
     private Rigidbody rb;
     private List<Vector3> positionHistory;
     private List<float> timeHistory;
@@ -21,7 +25,9 @@ public class IgrokController : MonoBehaviour
     {
         onRoad = IsOnRoad();
 
-        if (!onRoad)
+        // Если игрок не на дороге и при этом не в безопасной зоне (счетчик = 0),
+        // то запускаем корутину для возврата на дорогу
+        if (!onRoad && safeZoneCounter == 0)
         {
             StartCoroutine(TeleportToRoadAfterDelay());
         }
@@ -58,9 +64,9 @@ public class IgrokController : MonoBehaviour
     public System.Collections.IEnumerator TeleportToRoadAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
-      
 
-        if (!IsOnRoad())
+        // Снова проверяем, не вернулся ли игрок или не заехал ли он в безопасную зону
+        if (!IsOnRoad() && safeZoneCounter == 0)
         {
             Vector3 positionFiveSecondsAgo = GetPositionFiveSecondsAgo();
 
@@ -73,6 +79,8 @@ public class IgrokController : MonoBehaviour
                 rb.velocity = savedVelocity;
                 rb.angularVelocity = savedAngularVelocity;
 
+                // Сброс спящего состояния, чтобы убедиться,
+                // что физика "подхватит" корректно
                 rb.Sleep();
                 rb.WakeUp();
             }
@@ -82,24 +90,21 @@ public class IgrokController : MonoBehaviour
     public System.Collections.IEnumerator TeleportToRoadAfterDelayOnRoad()
     {
         yield return new WaitForSeconds(0.2f);
-       
 
-        
-            Vector3 positionFiveSecondsAgo = GetPositionFiveSecondsAgo();
+        Vector3 positionFiveSecondsAgo = GetPositionFiveSecondsAgo();
 
-            if (positionFiveSecondsAgo != Vector3.zero)
-            {
-                Vector3 savedVelocity = rb.velocity;
-                Vector3 savedAngularVelocity = rb.angularVelocity;
-                transform.position = positionFiveSecondsAgo;
+        if (positionFiveSecondsAgo != Vector3.zero)
+        {
+            Vector3 savedVelocity = rb.velocity;
+            Vector3 savedAngularVelocity = rb.angularVelocity;
+            transform.position = positionFiveSecondsAgo;
 
-                rb.velocity = savedVelocity;
-                rb.angularVelocity = savedAngularVelocity;
+            rb.velocity = savedVelocity;
+            rb.angularVelocity = savedAngularVelocity;
 
-                rb.Sleep();
-                rb.WakeUp();
-            }
-  
+            rb.Sleep();
+            rb.WakeUp();
+        }
     }
 
     public Vector3 GetPositionFiveSecondsAgo()
@@ -128,5 +133,23 @@ public class IgrokController : MonoBehaviour
         }
 
         return positionHistory[0]; 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Увеличиваем счётчик, если зашли в безопасную зону
+        if (other.CompareTag("OffRoadSafeZone"))
+        {
+            safeZoneCounter++;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Уменьшаем счётчик, если вышли из безопасной зоны
+        if (other.CompareTag("OffRoadSafeZone"))
+        {
+            safeZoneCounter = Mathf.Max(0, safeZoneCounter - 1);
+        }
     }
 }

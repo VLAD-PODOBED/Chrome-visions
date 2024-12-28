@@ -37,7 +37,6 @@ public class PlayerControllerBonusOne : MonoBehaviour
     {
         if (IsImageVisible(bonus2Image) || IsImageVisible(bonus3Image))
         {
-            Debug.Log("Cannot activate pass through bonus because Bonus2 or Bonus3 image is visible.");
             return;
         }
 

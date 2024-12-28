@@ -7,7 +7,10 @@ public class LapCounter : MonoBehaviour
     public UIDocument uiDocument;
     public Label lapLabel;
     public int lapCount = 0;
-    public const int totalLaps = 3;
+    public int totalLaps = 3;
+    public string sceneName;
+    public EndTrigger endtrigger;
+    public bool isEnd = false;
 
     void Start()
     {
@@ -37,6 +40,12 @@ public class LapCounter : MonoBehaviour
 
     void LoadVictoryScene()
     {
-        SceneManager.LoadScene("EndScene");
+        if (!isEnd) {
+
+        SceneManager.LoadScene(sceneName);
+        }
+        else {
+            endtrigger.StartCoroutine(endtrigger.QuitGame());
+        }
     }
 }
