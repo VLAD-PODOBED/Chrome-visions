@@ -15,15 +15,20 @@ namespace DialogueSystem
 
             for (int i = 0; i < input.Length; i++)
             {
+                // Мгновенный пропуск при нажатии пробела
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    textHolder.text = input;
+                    break;
+                }
+
                 textHolder.text += input[i];
                 SoundManager.instance.PlaySound(sound);
                 yield return new WaitForSeconds(delay);
             }
 
-            // yield return new WaitForSeconds(delayBetweenLines);
-            yield return new WaitUntil(() => Input.GetMouseButton(0));
+            yield return new WaitUntil(() => Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space));
             finished = true;
         }
     }
 }
-
