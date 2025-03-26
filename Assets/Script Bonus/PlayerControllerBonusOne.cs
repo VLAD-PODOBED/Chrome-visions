@@ -19,6 +19,13 @@ public class PlayerControllerBonusOne : MonoBehaviour
     private VisualElement bonus2Image;
     private VisualElement bonus3Image;
 
+    // Новый бонусный материал, который применяется во время действия бонуса.
+    public Material bonusMaterial;
+    // Исходный материал, сохраняемый из объекта "body"
+    private Material originalMaterial;
+    // Рендерер объекта "body"
+    private Renderer bodyRenderer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -26,11 +33,28 @@ public class PlayerControllerBonusOne : MonoBehaviour
         initialRotation = transform.rotation;
         initialScale = transform.localScale;
 
-        
-
         var root = uiDocument.rootVisualElement;
         bonus2Image = root.Q<VisualElement>("Bonus2");
         bonus3Image = root.Q<VisualElement>("Bonus3");
+
+        // Ищем дочерний объект "body" и получаем его Renderer
+        Transform bodyTransform = transform.Find("body");
+        if (bodyTransform != null)
+        {
+            bodyRenderer = bodyTransform.GetComponent<Renderer>();
+            if (bodyRenderer != null)
+            {
+                originalMaterial = bodyRenderer.material;
+            }
+            else
+            {
+                Debug.LogError("Renderer не найден у объекта 'body'.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Объект 'body' не найден среди дочерних объектов.");
+        }
     }
 
     void Update()
@@ -72,13 +96,11 @@ public class PlayerControllerBonusOne : MonoBehaviour
     IEnumerator RespawnAfterDelay()
     {
         gameObject.SetActive(false);
-
         yield return new WaitForSeconds(3f);
         gameObject.SetActive(true);
         transform.position = initialPosition;
         transform.rotation = initialRotation;
         transform.localScale = initialScale;
-
         isActive = true;
     }
 
@@ -92,8 +114,13 @@ public class PlayerControllerBonusOne : MonoBehaviour
             audioSource.PlayOneShot(passThroughSound);
         }
 
-        int wallLayer = LayerMask.NameToLayer("Wall");
+        // Меняем материал у объекта "body", если бонусный материал задан
+        if (bodyRenderer != null && bonusMaterial != null)
+        {
+            bodyRenderer.material = bonusMaterial;
+        }
 
+        int wallLayer = LayerMask.NameToLayer("Wall");
         if (wallLayer != -1)
         {
             Physics.IgnoreLayerCollision(gameObject.layer, wallLayer, true);
@@ -103,6 +130,12 @@ public class PlayerControllerBonusOne : MonoBehaviour
         else
         {
             Debug.LogError("Layer Wall does not exist.");
+        }
+
+        // Восстанавливаем исходный материал
+        if (bodyRenderer != null)
+        {
+            bodyRenderer.material = originalMaterial;
         }
 
         isPassingThroughWalls = false;

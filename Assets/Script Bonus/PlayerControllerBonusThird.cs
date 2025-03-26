@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerControllerBonusThird : MonoBehaviour
 {
     private bool canSelectBot = false;
-    private bool isSelectionMode = false;
-    private Transform selectedBotTransform;
-    public AudioClip passThroughSound;
-    [SerializeField] private AudioSource audioSource;
     private bool bonusActive = false;
     private float bonusEndTime;
+
+    public AudioClip passThroughSound;
+    [SerializeField] private AudioSource audioSource;
 
     public UIDocument uiDocument;
     private VisualElement potImage;
@@ -18,9 +18,6 @@ public class PlayerControllerBonusThird : MonoBehaviour
 
     void Start()
     {
-       
-        
-
         var root = uiDocument.rootVisualElement;
         potImage = root.Q<VisualElement>("Bonus1");
         topImage = root.Q<VisualElement>("Bonus2");
@@ -37,57 +34,56 @@ public class PlayerControllerBonusThird : MonoBehaviour
 
     void Update()
     {
+        // Если видны какие-либо изображения бонусов, не активируем бонус
         if (IsImageVisible(potImage) || IsImageVisible(topImage))
         {
-            Debug.Log("Cannot activate bonus because pot or top image is visible.");
+            Debug.Log("Нельзя активировать бонус, так как одно из изображений видно.");
             return;
         }
 
+        // При нажатии Е, если можно выбрать бота и бонус не активен
         if (canSelectBot && Input.GetKeyDown(KeyCode.E) && !bonusActive)
         {
-           
             audioSource.PlayOneShot(passThroughSound);
-             
-            isSelectionMode = true;
             bonusActive = true;
-            bonusEndTime = Time.time + 5f;
-            Debug.Log("Selection mode activated");
-        }
 
-        if (bonusActive && Time.time > bonusEndTime)
-        {
-            canSelectBot = false;
-            isSelectionMode = false;
-            bonusActive = false;
-            Debug.Log("Bonus deactivated after 5 seconds");
-        }
-
-        if (isSelectionMode && Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            // Выбираем случайного бота для применения бонуса
+            GameObject selectedBot = SelectRandomBot();
+            if (selectedBot != null)
             {
-                if (hit.collider != null && (hit.collider.CompareTag("BOT1") || hit.collider.CompareTag("BOT2") || hit.collider.CompareTag("BOT3")))
-                {
-                    if (passThroughSound != null && audioSource != null)
-                    {
-                        audioSource.PlayOneShot(passThroughSound);
-                    }
-                    selectedBotTransform = hit.collider.transform;
-                    StartCoroutine(SwapPositions(selectedBotTransform, transform, 0.5f));
-                    canSelectBot = false;
-                    isSelectionMode = false;
-                    bonusActive = false;
-                }
+                StartCoroutine(SwapPositions(selectedBot.transform, transform, 0.5f));
+                Debug.Log("Бонус активирован: позиции обменялись с ботом " + selectedBot.name);
             }
+            else
+            {
+                Debug.Log("Не найден подходящий бот для применения бонуса.");
+            }
+            canSelectBot = false;
+            bonusActive = false;
         }
     }
 
     bool IsImageVisible(VisualElement imageElement)
     {
         return imageElement != null && imageElement.resolvedStyle.display != DisplayStyle.None;
+    }
+
+    // Метод для выбора случайного бота. Здесь можно добавить дополнительную фильтрацию (например, по количеству кругов)
+    private GameObject SelectRandomBot()
+    {
+        List<GameObject> bots = new List<GameObject>();
+        bots.AddRange(GameObject.FindGameObjectsWithTag("BOT1"));
+        bots.AddRange(GameObject.FindGameObjectsWithTag("BOT2"));
+        bots.AddRange(GameObject.FindGameObjectsWithTag("BOT3"));
+
+        // Если будет доступна информация о количестве кругов, можно оставить только ботов с кругом >= круг игрока
+
+        if (bots.Count == 0)
+        {
+            return null;
+        }
+        int randomIndex = Random.Range(0, bots.Count);
+        return bots[randomIndex];
     }
 
     IEnumerator SwapPositions(Transform botTransform, Transform playerTransform, float duration)

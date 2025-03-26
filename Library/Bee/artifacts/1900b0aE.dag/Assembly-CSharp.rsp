@@ -381,6 +381,7 @@
 "Assets/RestartGame.cs"
 "Assets/Scenes/ArcadeScreen.cs"
 "Assets/Scenes/blackcamera.cs"
+"Assets/Scenes/CollisionForwarder.cs"
 "Assets/Scenes/waitDLG.cs"
 "Assets/Script Bonus/BonusOne.cs"
 "Assets/Script Bonus/BonusOneHandler.cs"
